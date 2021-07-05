@@ -4,33 +4,24 @@ import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
 
-class Ships extends React.Component {
+class Ports extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            shipList: []
+            portList: []
         };
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/api/v1_0/ship/')
-            .then(response => this.setState({ shipList: response.data }));
+        axios.get('http://localhost:8080/api/v1_0/port/')
+            .then(response => this.setState({ portList: response.data }));
     }
 
-    getPortName(port) {
-       let result = '';
-       if (typeof(port) !== 'undefined') {
-         result = port.name;
-       }
-       return result;
-    }
-
-    getGoodQty(events, goodType) {
+    getGoodQty(goods, goodType) {
       let result = 0;
-      if(typeof(events) !== 'undefined') {
-        let event = events[0];
-        for(const good of event.goods) {
+      if(typeof(goods) !== 'undefined') {
+        for(const good of goods) {
           if(good.goodType == goodType) {
             result = good.qty;
             break;
@@ -40,24 +31,16 @@ class Ships extends React.Component {
       return result;
     }
 
-    getGoldCoins(events) {
-      return this.getGoodQty(events, 'GOLD_COINS');
+    getGoldCoins(goods) {
+      return this.getGoodQty(goods, 'GOLD_COINS');
     }
 
-    getBarrelsOfRum(events) {
-      return this.getGoodQty(events, 'BARRELS_OF_RUM');
-    }
-
-    getCurrentPort(events) {
-      let result = '';
-      console.log(events);
-      if(typeof(events) !== 'undefined') {
-        result = events[0].port.name;
-      }
-      return result;
+    getBarrelsOfRum(goods) {
+      return this.getGoodQty(goods, 'BARRELS_OF_RUM');
     }
 
     render() {
+        const { totalReactPackages } = this.state;
         return (
           <Container fluid className="main-content-container px-4">
           <Row noGutters className="page-header py-4">
@@ -66,7 +49,7 @@ class Ships extends React.Component {
               <Col>
                 <Card small className="mb-4">
                   <CardHeader className="border-bottom">
-                    <h6 className="m-0">Ships</h6>
+                    <h6 className="m-0">Ports</h6>
                   </CardHeader>
                   <CardBody className="p-0 pb-3">
                     <table className="table mb-0">
@@ -76,7 +59,7 @@ class Ships extends React.Component {
                             #
                           </th>
                           <th scope="col" className="border-0">
-                            Ship Name
+                            Port Name
                           </th>
                           <th scope="col" className="border-0">
                             Barrels of Rum
@@ -84,20 +67,16 @@ class Ships extends React.Component {
                           <th scope="col" className="border-0">
                             Gold Coins
                           </th>
-                          <th scope="col" className="border-0">
-                            Is at Port
-                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                      {this.state.shipList.map((item) => {
+                      {this.state.portList.map((item) => {
                         return (
                         <tr>
                           <td>{item.id}</td>
                           <td>{item.name}</td>
-                          <td>{this.getBarrelsOfRum(item.events)}</td>
-                          <td>{this.getGoldCoins(item.events)}</td>
-                          <td>{this.getCurrentPort(item.events)}</td>
+                          <td>{this.getGoldCoins(item.goods)}</td>
+                          <td>{this.getBarrelsOfRum(item.goods)}</td>
                         </tr>
                         );
                       })}
@@ -112,4 +91,4 @@ class Ships extends React.Component {
     }
 }
 
-export default Ships ;
+export default Ports ;

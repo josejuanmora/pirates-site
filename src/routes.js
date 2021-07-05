@@ -13,6 +13,7 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Ships from "./views/Ships";
+import Ports from "./views/Ports";
 
 export default [
   {
@@ -25,6 +26,11 @@ export default [
     path: "/ships",
     layout: DefaultLayout,
     component: Ships
+  },
+  {
+    path: "/ports",
+    layout: DefaultLayout,
+    component: Ports
   },
   {
     path: "/blog-overview",

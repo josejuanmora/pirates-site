@@ -6,6 +6,11 @@ export default function() {
       to: "/ships",
     },
     {
+      title: "Ports",
+      htmlBefore: '<i class="material-icons">table_chart</i>',
+      to: "/ports",
+    },
+    {
       title: "Blog Dashboard",
       to: "/blog-overview",
       htmlBefore: '<i class="material-icons">edit</i>',
