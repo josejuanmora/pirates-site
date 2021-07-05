@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
+import React from "react";
 import { useTable } from "react-table";
 
-import './App.css';
-
-function Table({ columns, data }) {
-  const {
+export default function Table({ columns, data }) {
+ const {
    getTableProps,
    getTableBodyProps,
    headerGroups,
@@ -42,42 +39,3 @@ function Table({ columns, data }) {
    </table>
  )
 }
-
-function App() {
- const [data, setData] = useState([]);
-
- useEffect(() => {
-   axios("http://localhost:8080/api/v1_0/ship/")
-     .then((res) => {
-       setData(res.data);
-     })
-     .catch((err) => console.log(err))
- }, []);
-
- const columns = useMemo(
-   () => [
-     {
-       Header: "Ships",
-       columns: [
-         {
-           Header: "Identifier",
-           accessor: "id"
-         },
-         {
-           Header: "Name",
-           accessor: "name"
-         },
-       ]
-     }
-   ]
- )
-
- return (
-   <div className="App">
-     <h1><center>Pirates</center></h1>
-     <Table columns={columns} data={data} />
-   </div>
- );
-}
-
-export default App;
