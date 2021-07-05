@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
-import PageTitle from "../components/common/PageTitle";
-
 class Ports extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +20,7 @@ class Ports extends React.Component {
       let result = 0;
       if(typeof(goods) !== 'undefined') {
         for(const good of goods) {
-          if(good.goodType == goodType) {
+          if(good.goodType === goodType) {
             result = good.qty;
             break;
           }
@@ -40,7 +38,6 @@ class Ports extends React.Component {
     }
 
     render() {
-        const { totalReactPackages } = this.state;
         return (
           <Container fluid className="main-content-container px-4">
           <Row noGutters className="page-header py-4">

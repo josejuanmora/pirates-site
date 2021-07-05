@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
-import PageTitle from "../components/common/PageTitle";
-
 class Ships extends React.Component {
     constructor(props) {
         super(props);
@@ -31,7 +29,7 @@ class Ships extends React.Component {
       if(typeof(events) !== 'undefined') {
         let event = events[0];
         for(const good of event.goods) {
-          if(good.goodType == goodType) {
+          if(good.goodType === goodType) {
             result = good.qty;
             break;
           }
