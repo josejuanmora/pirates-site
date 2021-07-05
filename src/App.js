@@ -1,83 +1,31 @@
-import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
-import { useTable } from "react-table";
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import './App.css';
+import routes from "./routes";
+import withTracker from "./withTracker";
 
-function Table({ columns, data }) {
-  const {
-   getTableProps,
-   getTableBodyProps,
-   headerGroups,
-   rows,
-   prepareRow,
- } = useTable({
-   columns,
-   data,
- })
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
- return (
-   <table {...getTableProps()}>
-     <thead>
-       {headerGroups.map(headerGroup => (
-         <tr {...headerGroup.getHeaderGroupProps()}>
-           {headerGroup.headers.map(column => (
-             <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-           ))}
-         </tr>
-       ))}
-     </thead>
-     <tbody {...getTableBodyProps()}>
-       {rows.map((row, i) => {
-         prepareRow(row)
-         return (
-           <tr {...row.getRowProps()}>
-             {row.cells.map(cell => {
-               return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-             })}
-           </tr>
-         )
-       })}
-     </tbody>
-   </table>
- )
-}
-
-function App() {
- const [data, setData] = useState([]);
-
- useEffect(() => {
-   axios("http://localhost:8080/api/v1_0/ship/")
-     .then((res) => {
-       setData(res.data);
-     })
-     .catch((err) => console.log(err))
- }, []);
-
- const columns = useMemo(
-   () => [
-     {
-       Header: "Ships",
-       columns: [
-         {
-           Header: "Identifier",
-           accessor: "id"
-         },
-         {
-           Header: "Name",
-           accessor: "name"
-         },
-       ]
-     }
-   ]
- )
-
- return (
-   <div className="App">
-     <h1><center>Pirates</center></h1>
-     <Table columns={columns} data={data} />
-   </div>
- );
-}
-
-export default App;
+export default () => (
+  <Router basename={process.env.REACT_APP_BASENAME || ""}>
+    <div>
+      {routes.map((route, index) => {
+        return (
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            component={withTracker(props => {
+              return (
+                <route.layout {...props}>
+                  <route.component {...props} />
+                </route.layout>
+              );
+            })}
+          />
+        );
+      })}
+    </div>
+  </Router>
+);
