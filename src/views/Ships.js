@@ -92,7 +92,7 @@ class Ships extends React.Component {
                         return (
                         <tr>
                           <td>{item.id}</td>
-                          <td>{item.name}</td>
+                          <td><a href={"/ships/?id=" + item.id}>{item.name}</a></td>
                           <td>{this.getBarrelsOfRum(item.events)}</td>
                           <td>{this.getGoldCoins(item.events)}</td>
                           <td>{this.getCurrentPort(item.events)}</td>
