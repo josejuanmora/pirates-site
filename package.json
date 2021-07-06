@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "ast-utils": "^1.0.0",
     "bootstrap": "^5.0.2",
     "camelize": "^1.0.0",
     "chart.js": "^2.7.3",
