@@ -22,8 +22,7 @@ class ShipForm extends React.Component {
         portList: [],
         barrelsOfRum: 0,
         goldCoins: 0,
-        currentPort : props.currentPort,
-        portId : (props.currentPort != null) ? props.currentPort.id : null,
+        portId : props.currentPortId,
         displayOkMessage : false,
         displayErrorMessage: false
     };
@@ -46,7 +45,7 @@ class ShipForm extends React.Component {
   }
 
   updateShipStatus() {
-    let eventType = this.state.currentPort !=null ?
+    let eventType = this.props.currentPortId !=null ?
       'DEPARTURE_FROM_PORT' : 'ARRIVAL_TO_PORT';
 
     axios.put('http://localhost:8080/api/v1_0/ship/' + this.props.id + '/event', {
@@ -114,7 +113,7 @@ class ShipForm extends React.Component {
                         onChange={this.handleGoldCoinsChange} />
                       </Col>
                     </Row>
-                    {this.state.currentPort==null &&
+                    {this.props.currentPortId==null &&
                     <Row form>
                       <Col md="4" className="form-group">
                         <label htmlFor="fePort">Port</label>

@@ -56,19 +56,23 @@ class Ships extends React.Component {
 
   getCurrentPort(ship) {
     let result = null;
-    let event = null;
     if(typeof(ship.events) !== 'undefined') {
+      let event = null;
       event = ship.events[0];
       if(event.eventType === 'ARRIVAL_TO_PORT') {
         result = event.port;
       }
     }
-
     return result;
   }
 
+  getCurrentPortId(ship) {
+    let port = this.getCurrentPort(ship);
+    return port!=null ? port.id : null;
+  }
+
   displayShipForm(s) {
-    this.setState({ship: s}, ()=> console.log("updated state"));
+    this.setState({ship: s});
   }
 
   render() {
@@ -129,7 +133,7 @@ class Ships extends React.Component {
             <ShipForm
               id={this.state.ship.id}
               name={this.state.ship.name}
-              currentPort={this.getCurrentPort(this.state.ship)}/>}
+              currentPortId={this.getCurrentPortId(this.state.ship)}/>}
         </Container>
       );
   }
