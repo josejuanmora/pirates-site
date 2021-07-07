@@ -9,6 +9,11 @@ export default function() {
       title: "Ports",
       htmlBefore: '<i class="material-icons">table_chart</i>',
       to: "/ports",
-    }
+    },
+    {
+      title: "Forms & Components",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: "/components-overview",
+    },
   ];
 }

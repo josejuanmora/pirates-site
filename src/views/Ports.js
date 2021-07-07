@@ -69,7 +69,7 @@ class Ports extends React.Component {
                       <tbody>
                       {this.state.portList.map((item) => {
                         return (
-                        <tr>
+                        <tr key={item.id}>
                           <td>{item.id}</td>
                           <td>{item.name}</td>
                           <td>{this.getGoldCoins(item.goods)}</td>
