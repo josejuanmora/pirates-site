@@ -39,9 +39,7 @@ class ShipForm extends React.Component {
 
   initPortList(response) {
     let portList = response.data;
-    if(this.state.portId == null) {
-      this.setState({ portList: portList, portId : portList[0].id});
-    }
+    this.setState({ portList: portList, portId : portList[0].id});
   }
 
   updateShipStatus() {
@@ -65,6 +63,7 @@ class ShipForm extends React.Component {
 
     return true;
   }
+
   handlePortChange(event) {
     this.setState({portId : event.target.value});
   }
