@@ -35,7 +35,7 @@ import CustomSelect from "../components/components-overview/CustomSelect";
 const ComponentsOverview = () => (
   <div>
     <Container fluid className="px-0">
-      <Alert className="mb-0">
+      <Alert className="bg-success">
         <i className="fa fa-info mx-2"></i> How you doin'? I'm just a friendly, good-looking notification message and I come in all the colors you can see below. Pretty cool, huh?
       </Alert>
     </Container>

@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
-import { Link } from "react-router-dom";
+import { Button, Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import ShipForm from "../components/ShipForm";
 
@@ -69,8 +68,6 @@ class Ships extends React.Component {
   }
 
   displayShipForm(s) {
-    console.log("ship to display: " + s.id);
-    console.log(this.state);
     this.setState({ship: s}, ()=> console.log("updated state"));
   }
 
@@ -104,6 +101,9 @@ class Ships extends React.Component {
                         <th scope="col" className="border-0">
                           Is at Port
                         </th>
+                        <th scope="col" className="border-0">
+                          Detail
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -111,10 +111,11 @@ class Ships extends React.Component {
                       return (
                       <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td><Link to="" onClick={this.displayShipForm.bind(this, item)}>{item.name}</Link></td>
+                        <td>{item.name}</td>
                         <td>{this.getBarrelsOfRum(item)}</td>
                         <td>{this.getGoldCoins(item)}</td>
                         <td>{this.getPortName(this.getCurrentPort(item))}</td>
+                        <td><Button type="submit" onClick={this.displayShipForm.bind(this, item)}>Detail</Button></td>
                       </tr>
                       );
                     })}
@@ -128,8 +129,6 @@ class Ships extends React.Component {
             <ShipForm
               id={this.state.ship.id}
               name={this.state.ship.name}
-              barrelsOfRum={this.getBarrelsOfRum(this.state.ship)}
-              goldCoins={this.getGoldCoins(this.state.ship)}
               currentPort={this.getCurrentPort(this.state.ship)}/>}
         </Container>
       );
